@@ -20,5 +20,4 @@ public class ElasticSearchClient extends AbstractElasticsearchConfiguration {
 
         return RestClients.create(clientConfiguration).rest();
     }
-
 }
