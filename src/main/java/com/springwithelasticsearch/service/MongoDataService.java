@@ -1,10 +1,8 @@
 package com.springwithelasticsearch.service;
 
-import com.springwithelasticsearch.model.elastic.ElasticLoc;
-import com.springwithelasticsearch.model.elastic.ElasticZips;
-import com.springwithelasticsearch.model.mongo.Zips;
-import com.springwithelasticsearch.repo.ElasticSearchRepo;
-import com.springwithelasticsearch.repo.MongoRepo;
+import com.springwithelasticsearch.model.Zips;
+import com.springwithelasticsearch.repo.elastic.ElasticSearchRepo;
+import com.springwithelasticsearch.repo.mongo.MongoRepo;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
@@ -21,20 +19,6 @@ public class MongoDataService {
 
     public void getAllData() {
         List<Zips> zipsList = mongoRepo.findAll();
-
-        zipsList.forEach(zips -> {
-            ElasticZips elasticZips = new ElasticZips();
-            ElasticLoc elasticLoc = new ElasticLoc();
-
-            elasticLoc.setX(zips.getLoc().getX());
-            elasticLoc.setY(zips.getLoc().getY());
-
-            elasticZips.setCity(zips.getCity());
-            elasticZips.setPop(zips.getPop());
-            elasticZips.setState(zips.getState());
-            elasticZips.setElasticLoc(elasticLoc);
-
-            elasticSearchRepo.save(elasticZips);
-        });
+        zipsList.forEach(elasticSearchRepo::save);
     }
 }

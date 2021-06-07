@@ -1,4 +1,4 @@
-package com.springwithelasticsearch.model.mongo;
+package com.springwithelasticsearch.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
